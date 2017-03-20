@@ -79,7 +79,7 @@ namespace Microsoft.IdentityService.Clients.ActiveDirectory
 
         protected override async Task<AuthenticationResultEx> SendTokenRequestAsync()
         {
-            AuthenticationResultEx resultEx = await base.SendTokenRequestAsync();
+            AuthenticationResultEx resultEx = await base.SendTokenRequestAsync().ConfigureAwait(false);
             if (resultEx != null)
             {
                 resultEx.UserAssertionHash = CacheQueryData.AssertionHash;

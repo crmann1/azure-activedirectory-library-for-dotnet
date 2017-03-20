@@ -56,7 +56,7 @@ namespace Microsoft.IdentityService.Clients.ActiveDirectory
             {
                 try
                 {
-                    resultEx = await base.SendTokenRequestAsync();
+                    resultEx = await base.SendTokenRequestAsync().ConfigureAwait(false);
                     break;
                 }
                 catch (AdalServiceException exc)
@@ -67,7 +67,7 @@ namespace Microsoft.IdentityService.Clients.ActiveDirectory
                     }
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(deviceCodeResult.Interval));
+                await Task.Delay(TimeSpan.FromSeconds(deviceCodeResult.Interval)).ConfigureAwait(false);
                 timeRemaining = deviceCodeResult.ExpiresOn - DateTimeOffset.UtcNow;
             }
 
