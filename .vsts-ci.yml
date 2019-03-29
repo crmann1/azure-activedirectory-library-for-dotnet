@@ -72,3 +72,6 @@ steps:
     nuGetVersion: 4.0.0.2283
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
+- task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+  displayName: 'Component Detection'
+
