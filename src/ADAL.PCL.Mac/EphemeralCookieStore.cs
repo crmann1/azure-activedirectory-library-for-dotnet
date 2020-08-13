@@ -74,9 +74,18 @@ namespace Microsoft.IdentityService.Clients.ActiveDirectory
                     { NSHttpCookie.KeySecure, NSNumber.FromBoolean (isSecure) },
                 });
 
-                AddCookieToStorage(cookie);
+                try
+                {
+                    AddCookieToStorage(cookie);
+                }
+                catch (Exception ex)
+                {
+                    PlatformPlugin.Logger.Warning(null, string.Format("Invalid cookie for web view url: {0} document.cookies: {1}", docUrl, docCookies));
+                    PlatformPlugin.Logger.Error(null, ex);
+                }
             }
         }
+
         public void TakeCookies(NSUrlResponse response)
         {
             var httpResponse = response as NSHttpUrlResponse;
@@ -86,7 +95,15 @@ namespace Microsoft.IdentityService.Clients.ActiveDirectory
             var cookies = NSHttpCookie.CookiesWithResponseHeaderFields(httpResponse.AllHeaderFields, httpResponse.Url);
             foreach (var cookie in cookies)
             {
-                AddCookieToStorage(cookie);
+                try
+                {
+                    AddCookieToStorage(cookie);
+                }
+                catch (Exception ex)
+                {
+                    PlatformPlugin.Logger.Warning(null, string.Format("Invalid cookie for response url: {0}", httpResponse.Url));
+                    PlatformPlugin.Logger.Error(null, ex);
+                }
             }
         }
 

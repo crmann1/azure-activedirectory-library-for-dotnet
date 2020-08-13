@@ -25,25 +25,15 @@
 //
 //------------------------------------------------------------------------------
 
-using System;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace Microsoft.IdentityService.Clients.ActiveDirectory
 {
-    public class WebUIFactory : IWebUIFactory
+    class MacHttpClientFactory : IHttpClientFactory
     {
-        public WebUIFactory()
-        {
-            // HACK: The WebUIFactory is initialized after the default HttpClientFactory is created so
-            // we use the creation of the WebUIFactory to replace the default HttpClientFactory.
-            PlatformPlugin.HttpClientFactory = new MacHttpClientFactory();
-        }
+        public bool AddAdditionalHeaders { get; set; }
 
-        public IWebUI CreateAuthenticationDialog(IPlatformParameters parameters)
+        public IHttpClient Create(string uri, CallState callState)
         {
-            return new WebUI(parameters);
+            return new MacHttpClientWrapper(uri, callState);
         }
     }
 }

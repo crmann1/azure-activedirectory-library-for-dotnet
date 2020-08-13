@@ -36,6 +36,7 @@
     <LinkMode></LinkMode>
     <LinkMode></LinkMode>
     <XamMacArch></XamMacArch>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -54,12 +55,14 @@
     <TlsProvider></TlsProvider>
     <LinkMode></LinkMode>
     <XamMacArch></XamMacArch>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.Mac" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +104,17 @@
       <Link>TokenCachePlugin.cs</Link>
     </Compile>
     <Compile Include="EphemeralCookieStore.cs" />
+    <Compile Include="..\ADAL.PCL.Desktop\UserPasswordCredential.cs">
+      <Link>UserPasswordCredential.cs</Link>
+    </Compile>
+    <Compile Include="..\ADAL.Common\AuthenticationContextIntegratedAuthExtensions.cs">
+      <Link>AuthenticationContextIntegratedAuthExtensions.cs</Link>
+    </Compile>
+    <Compile Include="MacHttpClientWrapper.cs" />
+    <Compile Include="MacHttpClientFactory.cs" />
+    <Compile Include="ProxyProvider.cs" />
+    <Compile Include="MacProxyCredentialProvider.cs" />
+    <Compile Include="KeyChain.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ADAL.PCL\ADAL.PCL.csproj">
